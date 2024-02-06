@@ -1,0 +1,4 @@
+node_modules
+.env
+client.http
+.DS_Store
