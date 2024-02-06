@@ -1,4 +1,6 @@
-import fastify from "fastify";
+import fastify, { FastifyRequest } from "fastify";
+import prisma from "../shared/prisma";
+import { z } from "zod";
 
 const app = fastify();
 
@@ -10,6 +12,15 @@ app
     console.log("Server is running on port 3333");
   });
 
-app.get("/", (request, reply) => {
-  reply.send({ message: "Hello World" });
+app.post("/polls", async (request, reply) => {
+  const createBody = z.object({
+    title: z.string(),
+  });
+
+  const { title } = createBody.parse(request.body);
+  return await prisma.poll.create({
+    data: {
+      title,
+    },
+  });
 });
