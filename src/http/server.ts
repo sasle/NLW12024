@@ -18,9 +18,11 @@ app.post("/polls", async (request, reply) => {
   });
 
   const { title } = createBody.parse(request.body);
-  return await prisma.poll.create({
-    data: {
-      title,
-    },
-  });
+  return reply.status(201).send(
+    await prisma.poll.create({
+      data: {
+        title,
+      },
+    })
+  );
 });
