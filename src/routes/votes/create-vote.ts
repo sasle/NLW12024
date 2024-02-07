@@ -38,16 +38,18 @@ export default async function createVote() {
       },
     });
 
-    if (optionId == existingVoteForThisPoll?.pollOptionId)
-      return reply
-        .status(400)
-        .send({ message: "You have already voted for this option." });
-    else {
-      await prisma.vote.delete({
-        where: {
-          id: existingVoteForThisPoll?.id,
-        },
-      });
+    if (existingVoteForThisPoll) {
+      if (optionId == existingVoteForThisPoll?.pollOptionId)
+        return reply
+          .status(400)
+          .send({ message: "You have already voted for this option." });
+      else {
+        await prisma.vote.delete({
+          where: {
+            id: existingVoteForThisPoll?.id,
+          },
+        });
+      }
     }
 
     return reply.status(201).send(
