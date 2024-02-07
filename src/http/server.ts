@@ -1,10 +1,14 @@
 import fastify, { FastifyRequest } from "fastify";
-import createPoll from "../routes/create-poll";
-import createPollOption from "../routes/create-poll-option";
+import createPollOption from "../routes/poll-options/create-poll-option";
+import getPollOptions from "../routes/poll-options/get-poll-options";
+import getPolls from "../routes/polls/get-poll";
+import createPoll from "../routes/polls/create-poll";
 
 const app = fastify();
+app.register(getPolls);
 app.register(createPoll);
 app.register(createPollOption);
+app.register(getPollOptions);
 
 app
   .listen({

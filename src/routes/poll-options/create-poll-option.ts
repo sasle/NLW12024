@@ -1,6 +1,6 @@
 import z from "zod";
-import prisma from "../shared/prisma";
-import app from "../http/server";
+import prisma from "../../shared/prisma";
+import app from "../../http/server";
 
 export default async function createPollOption() {
   app.post("/polls/:pollId/options", async (request, reply) => {
