@@ -4,6 +4,17 @@ import app from "../../http/server";
 
 export default async function getPolls() {
   app.get("/polls", async (request, reply) => {
-    return reply.send(await prisma.poll.findMany());
+    return reply.send(
+      await prisma.poll.findMany({
+        include: {
+          options: {
+            select: {
+              title: true,
+              id: true,
+            },
+          },
+        },
+      })
+    );
   });
 }
